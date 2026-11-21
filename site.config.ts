@@ -170,8 +170,7 @@ export default {
       cover: '/placeholder/cover-1.webp',
       coverType: 'image',
       short: 'A short one or two sentence summary shown on the project card.',
-      long: 'A longer description for the project page.
-Explain the problem, your approach, and the result. Line breaks are kept.',
+      long: 'A longer description for the project page.\nExplain the problem, your approach, and the result. Line breaks are kept.',
       techStack: ['Strategy', 'Design'], // tag / alat yang dipakai
       liveUrl: 'https://example.com',
       githubUrl: '', // link kedua (repo, file, dsb.)
