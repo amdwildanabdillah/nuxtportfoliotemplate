@@ -5,6 +5,8 @@ Dibuat dengan **Nuxt 4 + Tailwind**. Semua isi (teks, project, kontak, sosmed) d
 
 *An open-source portfolio template. Edit one config file, deploy for free. English notes are at the bottom.*
 
+**Demo langsung: <https://template.idanabdll.me>**
+
 ---
 
 ## Pilih mode kamu
