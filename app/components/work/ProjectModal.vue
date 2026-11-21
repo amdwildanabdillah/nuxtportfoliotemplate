@@ -102,7 +102,7 @@ const getSrc = (type, url) => {
           </div>
 
           <div v-if="activeProject.tech_stack && activeProject.tech_stack.length > 0" class="w-full">
-            <span class="block text-[#666] text-[10px] uppercase tracking-[0.2em] mb-4">Tech Stack</span>
+            <span class="block text-[#666] text-[10px] uppercase tracking-[0.2em] mb-4">Tools &amp; Skills</span>
             <div class="flex flex-wrap gap-3">
               <div 
                 v-for="t in activeProject.tech_stack" 

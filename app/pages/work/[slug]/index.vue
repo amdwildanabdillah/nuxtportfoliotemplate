@@ -2,9 +2,9 @@
 import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-import LayoutDevelopment from '~/components/work/LayoutDevelopment.vue'
-import LayoutVideography from '~/components/work/LayoutVideography.vue'
-import LayoutPhotography from '~/components/work/LayoutPhotography.vue'
+import LayoutCards from '~/components/work/LayoutCards.vue'
+import LayoutVideo from '~/components/work/LayoutVideo.vue'
+import LayoutGallery from '~/components/work/LayoutGallery.vue'
 import ProjectModal from '~/components/work/ProjectModal.vue'
 
 const { site, profile } = usePortfolioConfig()
@@ -48,7 +48,7 @@ const loadCategoryData = async () => {
       thumbnail: vInfo.type === 'youtube' ? vInfo.thumbnail : p.cover_url }
   })
   // Susunan acak ala Pinterest khusus foto
-  if (res.currentCategory?.layout_type === 'photography') list.sort(() => Math.random() - 0.5)
+  if (layoutOf(res.currentCategory) === 'gallery') list.sort(() => Math.random() - 0.5)
   return { ...res, projects: list }
 }
 
@@ -59,7 +59,7 @@ const { data: pageData, pending } = await useAsyncData(
 )
 
 if (!pageData.value?.currentCategory) {
-  throw createError({ statusCode: 404, statusMessage: 'Kategori tidak ditemukan', fatal: true })
+  throw createError({ statusCode: 404, statusMessage: 'Category not found', fatal: true })
 }
 
 const categories = computed(() => pageData.value?.categories || [])
@@ -68,12 +68,12 @@ const projects = computed(() => pageData.value?.projects || [])
 const isLoading = computed(() => pending.value && !pageData.value)
 
 const defaultDescs = {
-  development: 'Translating complex ideas into functional, clean, and seamless digital solutions.',
-  videography: 'A blend of moving images and audio to bring raw emotion into every narrative.',
-  photography: 'A single frame, enough to convey feelings and stories that words can\'t capture.',
+  cards: 'A curated selection of projects and case studies.',
+  video: 'Moving images and sound, one story at a time.',
+  gallery: 'Single frames that say more than words can.',
 }
 const categoryDesc = computed(() =>
-  currentCategory.value?.description || defaultDescs[currentCategory.value?.layout_type] || 'A curated collection of creative works.')
+  currentCategory.value?.description || defaultDescs[layoutOf(currentCategory.value)] || 'A curated collection of works.')
 
 const handleScroll = () => { isScrolled.value = window.scrollY > 60 }
 
@@ -93,8 +93,8 @@ useHead({ link: [{ rel: 'canonical', href: () => `${SITE}/work/${slug.value}` }]
 const activeProject = ref(null)
 const currentImageIndex = ref(0)
 const openModal = (project) => {
-  // Development punya halaman sendiri (URL tetap, bisa dibagikan dan diindeks)
-  if (currentCategory.value.layout_type === 'development' && project.slug) {
+  // Kategori 'cards' punya halaman detail sendiri (URL tetap, bisa dibagikan dan diindeks)
+  if (layoutOf(currentCategory.value) === 'cards' && project.slug) {
     return navigateTo(`/work/${slug.value}/${project.slug}`)
   }
   activeProject.value = project; currentImageIndex.value = 0; document.body.style.overflow = 'hidden'
@@ -167,17 +167,17 @@ onUnmounted(() => {
       </div>
 
       <div v-if="isLoading" class="flex justify-center items-center py-20">
-        <span class="text-[#b084ff] text-xs tracking-[0.2em] uppercase animate-pulse">Fetching Database...</span>
+        <span class="text-[#b084ff] text-xs tracking-[0.2em] uppercase animate-pulse">Loading...</span>
       </div>
 
       <div v-else-if="projects.length > 0">
         <!-- LEMPAR PROPS KE MASING-MASING KOMPONEN -->
-        <LayoutDevelopment v-if="currentCategory.layout_type === 'development'" :projects="projects" @open-modal="openModal" />
-        <LayoutVideography v-else-if="currentCategory.layout_type === 'videography'" :projects="projects" @open-modal="openModal" />
-        <LayoutPhotography v-else-if="currentCategory.layout_type === 'photography'" :projects="projects" @open-modal="openModal" />
+        <LayoutCards v-if="layoutOf(currentCategory) === 'cards'" :projects="projects" @open-modal="openModal" />
+        <LayoutVideo v-else-if="layoutOf(currentCategory) === 'video'" :projects="projects" @open-modal="openModal" />
+        <LayoutGallery v-else-if="layoutOf(currentCategory) === 'gallery'" :projects="projects" @open-modal="openModal" />
       </div>
 
-      <div v-else class="text-[#888] text-center py-20 text-sm font-light">Belum ada karya di kategori ini.</div>
+      <div v-else class="text-[#888] text-center py-20 text-sm font-light">Nothing here yet.</div>
     </main>
 
     <Transition name="fade">

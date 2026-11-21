@@ -16,6 +16,7 @@ export const buildLocalData = (cfg) => {
     slug: p.slug,
     title: p.title,
     main_category_id: p.category,
+    category_slug: p.category,
     sub_categories: p.subCategory ? { name: p.subCategory } : null,
     desc_short: p.short || '',
     desc_long: p.long || '',

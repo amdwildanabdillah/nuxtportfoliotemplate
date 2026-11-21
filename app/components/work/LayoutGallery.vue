@@ -14,7 +14,7 @@ const emit = defineEmits(['open-modal'])
       </div>
       
       <!-- NUXT IMAGE LIB -->
-      <NuxtImg :src="photo.thumbnail" :alt="photo.title || 'Photography'" loading="lazy" sizes="sm:100vw md:50vw lg:400px" class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105" />
+      <NuxtImg :src="photo.thumbnail" :alt="photo.title || 'Photo'" loading="lazy" sizes="sm:100vw md:50vw lg:400px" class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105" />
       
     </div>
   </div>

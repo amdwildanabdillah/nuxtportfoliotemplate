@@ -16,7 +16,7 @@ const { data } = await useAsyncData(
 )
 
 if (!data.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Project tidak ditemukan', fatal: true })
+  throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true })
 }
 
 const cat = computed(() => data.value?.cat || {})
@@ -123,7 +123,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           <!-- Tech stack + klien -->
           <aside class="flex flex-col gap-8">
             <div v-if="project.tech_stack?.length">
-              <h2 class="text-[#666] text-[10px] uppercase tracking-[0.2em] mb-4">Tech Stack</h2>
+              <h2 class="text-[#666] text-[10px] uppercase tracking-[0.2em] mb-4">Tools &amp; Skills</h2>
               <ul class="flex flex-wrap gap-2 list-none p-0 m-0">
                 <li v-for="t in project.tech_stack" :key="t" class="bg-white/5 border border-white/10 px-3 py-1.5 text-[10px] flex items-center gap-2">
                   <span v-if="getTechDetails(t).type === 'svg'" v-html="getTechDetails(t).content" class="flex items-center"></span>
@@ -151,7 +151,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
         <div class="mt-20 pt-8 border-t border-white/10">
           <NuxtLink :to="`/work/${catSlug}`" class="inline-flex items-center gap-2 text-[#aaa] hover:text-white transition-colors text-[10px] uppercase tracking-[0.2em]">
-            <Icon name="ph:arrow-left" class="text-lg" /> Semua project {{ cat.name }}
+            <Icon name="ph:arrow-left" class="text-lg" /> All {{ cat.name }}
           </NuxtLink>
         </div>
       </article>

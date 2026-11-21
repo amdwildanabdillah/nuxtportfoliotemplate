@@ -30,7 +30,7 @@ export default {
   site: {
     url: 'https://example.com', // alamat websitemu (tanpa garis miring di akhir)
     title: 'Your Name - Creative Portfolio',
-    description: 'Web developer and visual storyteller based in Your City.',
+    description: 'Portfolio of Your Name. Write one sentence about what you do.',
     language: 'en', // 'id' untuk Indonesia, 'en' untuk Inggris
     ogImage: '/og-image.png', // gambar preview saat link dibagikan (ukuran 1200x630)
     themeColor: '#050505',
@@ -43,7 +43,7 @@ export default {
   profile: {
     name: 'Your Name',
     location: 'Your City',
-    jobTitle: 'Web Developer & Creative',
+    jobTitle: 'Your Job Title',
     email: 'hello@example.com',
     whatsapp: '', // format internasional tanpa + atau spasi, contoh: '6281234567890'. Kosong = tombol WA disembunyikan
   },
@@ -65,12 +65,12 @@ export default {
   // ──────────────────────────────────────────────────────────
   hero: {
     eyebrow: 'Your Name · Your City',
-    line1: 'Visuals by Heart.',
-    line2: 'Logic by Code.', // baris kedua yang diberi highlight
-    description: 'I build websites and apps, then capture their story through photo and video.',
+    line1: 'Your Headline',
+    line2: 'Goes Here.', // baris kedua yang diberi highlight
+    description: 'Write one or two sentences about what you do and who you help.',
     primaryButton: 'See Projects', // menggulir ke bagian project
     secondaryButton: 'Let\'s Talk', // membuka WhatsApp (butuh profile.whatsapp)
-    tagline: 'Web Developer | Photographer | Videographer',
+    tagline: 'Your Role | Your Craft | Your Niche',
   },
 
   // ──────────────────────────────────────────────────────────
@@ -78,41 +78,34 @@ export default {
   // ──────────────────────────────────────────────────────────
   featured: {
     eyebrow: 'Selected Work',
-    titleBefore: 'Built &',
-    titleHighlight: 'shipped.',
-    linkLabel: 'All development projects',
+    titleBefore: 'Selected',
+    titleHighlight: 'work.',
+    linkLabel: 'See all work',
     emptyText: 'No featured projects yet.',
     maxItems: 3,
   },
 
   work: {
-    titleBefore: 'Visual',
-    titleHighlight: 'Narratives.',
+    titleBefore: 'Explore',
+    titleHighlight: 'my work.',
     worksLabel: 'works', // tulisan di samping jumlah karya, mis. "5 works"
   },
 
   about: {
     badge: 'Who Am I?',
-    headingBefore: 'Storyteller',
-    headingHighlight: '& Developer.',
+    headingBefore: 'A little',
+    headingHighlight: 'about me.',
     photo: '/placeholder/profile.webp', // ganti dengan fotomu (rasio 4:5 paling pas)
     // Tiap item = satu paragraf
     paragraphs: [
       'Hi, I\'m Your Name. Write a short introduction about yourself here: what you do, what you care about, and what drives your work.',
       'Add a second paragraph about your studio, your company, or how you like to work with clients.',
     ],
-    // Ikon teknologi. `key` harus salah satu dari daftar di README (bagian "Daftar ikon teknologi").
+    // Ikon alat / skill (opsional). Hapus semua isinya `[]` kalau tidak mau menampilkannya.
+    // `key` harus salah satu dari daftar di README (bagian "Daftar ikon alat"); kata lain tampil dengan ikon umum.
     techGroups: [
-      { label: 'Dev', tools: [
-        { key: 'vue', name: 'Vue' }, { key: 'nuxt', name: 'Nuxt' }, { key: 'react', name: 'React' },
-        { key: 'next', name: 'Next.js' }, { key: 'tailwind', name: 'Tailwind CSS' }, { key: 'supabase', name: 'Supabase' },
-      ] },
       { label: 'Tools', tools: [
-        { key: 'git', name: 'Git' }, { key: 'github', name: 'GitHub' },
-        { key: 'vscode', name: 'VS Code' }, { key: 'vercel', name: 'Vercel' },
-      ] },
-      { label: 'Design', tools: [
-        { key: 'figma', name: 'Figma' }, { key: 'photoshop', name: 'Photoshop' }, { key: 'lightroom', name: 'Lightroom' },
+        { key: 'figma', name: 'Figma' }, { key: 'github', name: 'GitHub' }, { key: 'vscode', name: 'VS Code' },
       ] },
     ] as { label: string; tools: { key: string; name: string }[] }[],
   },
@@ -122,7 +115,7 @@ export default {
     headingBefore: 'ready to make something',
     headingHighlight: 'amazing?',
     ctaLabel: 'START A PROJECT',
-    footerTagline: 'Bridging the gap between people and digital experience through visuals and code.',
+    footerTagline: 'Thanks for stopping by. Let\'s make something great together.',
     venturesLabel: 'My Ventures', // kosongkan `ventures` kalau tidak perlu
     ventures: [
       // { label: 'My Studio', url: 'https://example.com', color: '#00d2ff' },
@@ -141,17 +134,21 @@ export default {
 
   // ──────────────────────────────────────────────────────────
   // 7. KATEGORI KARYA
-  //    Tiga tata letak tersedia: 'development', 'videography', 'photography'.
-  //    Kategori pertama tampil besar di beranda. Boleh kamu ubah nama / gambar / urutannya.
+  //    Kamu bebas menentukan nama dan jumlah kategori (1 sampai 6 paling pas).
+  //    `layout` memilih tampilan halaman kategorinya:
+  //      'cards'   → kartu besar + halaman detail tiap project (portofolio, studi kasus, produk, tulisan)
+  //      'video'   → daftar video YouTube (cover = link YouTube)
+  //      'gallery' → kisi foto ala Pinterest (foto, desain, ilustrasi)
+  //    Tepat 3 kategori = tampilan "bento" di beranda. Jumlah lain = kisi rata.
   // ──────────────────────────────────────────────────────────
   categories: [
-    { slug: 'development', name: 'Development', layout: 'development', image: '/placeholder/cover-1.webp',
-      description: 'Translating complex ideas into functional, clean, and seamless digital solutions.' },
-    { slug: 'videography', name: 'Videography', layout: 'videography', image: '/placeholder/cover-2.webp',
-      description: 'A blend of moving images and audio to bring raw emotion into every narrative.' },
-    { slug: 'photography', name: 'Photography', layout: 'photography', image: '/placeholder/cover-3.webp',
-      description: 'A single frame, enough to convey feelings and stories that words can\'t capture.' },
-  ] as { slug: string; name: string; layout: 'development' | 'videography' | 'photography'; image: string; description?: string }[],
+    { slug: 'projects', name: 'Projects', layout: 'cards', image: '/placeholder/cover-1.webp',
+      description: 'A selection of things I have built and worked on.' },
+    { slug: 'videos', name: 'Videos', layout: 'video', image: '/placeholder/cover-2.webp',
+      description: 'Moving images and sound, one story at a time.' },
+    { slug: 'gallery', name: 'Gallery', layout: 'gallery', image: '/placeholder/cover-3.webp',
+      description: 'Single frames that say more than words can.' },
+  ] as { slug: string; name: string; layout: 'cards' | 'video' | 'gallery'; image: string; description?: string }[],
 
   // ──────────────────────────────────────────────────────────
   // 8. PROJECT  (hanya dipakai di mode 'local')
@@ -159,37 +156,39 @@ export default {
   //
   //    category   : harus sama dengan `slug` salah satu kategori di atas
   //    cover      : gambar (path di /public atau URL penuh). Untuk video: link YouTube.
-  //    coverType  : 'image' | 'youtube'   (videography biasanya 'youtube')
+  //    coverType  : 'image' | 'youtube'   (kategori 'video' biasanya 'youtube')
+  //    techStack  : daftar tag / alat / skill (boleh kosong)
   //    gallery    : daftar gambar tambahan (opsional)
-  //    featured   : true = tampil di bagian "Selected Work" di beranda
+  //    featured   : true = tampil di bagian "Selected Work" di beranda (dari kategori mana pun)
   // ──────────────────────────────────────────────────────────
   projects: [
     {
-      title: 'Sample Web App',
-      slug: 'sample-web-app',
-      category: 'development',
-      subCategory: 'Web App',
+      title: 'Sample Project One',
+      slug: 'sample-project-one',
+      category: 'projects',
+      subCategory: 'Branding',
       cover: '/placeholder/cover-1.webp',
       coverType: 'image',
       short: 'A short one or two sentence summary shown on the project card.',
-      long: 'A longer description for the project page.\nExplain the problem, your approach, and the result. Line breaks are kept.',
-      techStack: ['Nuxt', 'Tailwind CSS', 'Supabase'],
+      long: 'A longer description for the project page.
+Explain the problem, your approach, and the result. Line breaks are kept.',
+      techStack: ['Strategy', 'Design'], // tag / alat yang dipakai
       liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/your-username/your-repo',
+      githubUrl: '', // link kedua (repo, file, dsb.)
       client: 'Client or Company Name',
       featured: true,
       gallery: [] as string[],
     },
     {
-      title: 'Sample Mobile App',
-      slug: 'sample-mobile-app',
-      category: 'development',
-      subCategory: 'Mobile App',
+      title: 'Sample Project Two',
+      slug: 'sample-project-two',
+      category: 'projects',
+      subCategory: 'Product',
       cover: '/placeholder/cover-2.webp',
       coverType: 'image',
       short: 'Another example project. Replace it with your own work.',
       long: '',
-      techStack: ['Flutter', 'Firebase'],
+      techStack: ['Research', 'Prototype'],
       liveUrl: '',
       githubUrl: '',
       client: '',
@@ -197,15 +196,15 @@ export default {
       gallery: [] as string[],
     },
     {
-      title: 'Sample Landing Page',
-      slug: 'sample-landing-page',
-      category: 'development',
-      subCategory: 'Website',
+      title: 'Sample Project Three',
+      slug: 'sample-project-three',
+      category: 'projects',
+      subCategory: 'Campaign',
       cover: '/placeholder/cover-3.webp',
       coverType: 'image',
       short: 'A third example so the featured row looks complete.',
       long: '',
-      techStack: ['Vue', 'Tailwind CSS'],
+      techStack: ['Writing'],
       liveUrl: '',
       githubUrl: '',
       client: '',
@@ -215,11 +214,11 @@ export default {
     {
       title: 'Sample Video',
       slug: 'sample-video',
-      category: 'videography',
-      subCategory: 'Cinematic',
-      cover: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // ganti dengan link YouTube-mu
+      category: 'videos',
+      subCategory: 'Film',
+      cover: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', // ganti dengan link YouTube-mu
       coverType: 'youtube',
-      short: 'Paste a YouTube link as the cover to show a video project.',
+      short: 'Paste a YouTube link as the cover to show a video.',
       long: '',
       techStack: [] as string[],
       liveUrl: '',
@@ -231,11 +230,11 @@ export default {
     {
       title: 'Sample Photo',
       slug: 'sample-photo',
-      category: 'photography',
-      subCategory: 'Portrait',
+      category: 'gallery',
+      subCategory: 'Series',
       cover: '/placeholder/cover-3.webp',
       coverType: 'image',
-      short: 'Photography projects use a masonry grid.',
+      short: 'Gallery categories use a masonry grid.',
       long: '',
       techStack: [] as string[],
       liveUrl: '',

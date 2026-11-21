@@ -1,6 +1,6 @@
 # Nuxt Portfolio Template
 
-Template website portofolio (dark, brutalist-glass, panel bertumpuk) untuk developer, fotografer, dan videografer.
+Template website portofolio (dark, brutalist-glass, panel bertumpuk) untuk **siapa saja**: developer, desainer, fotografer, penulis, arsitek, kreator, freelancer, studio, atau usaha kecil.
 Dibuat dengan **Nuxt 4 + Tailwind**. Semua isi (teks, project, kontak, sosmed) diatur lewat **satu file: `site.config.ts`**.
 
 *An open-source portfolio template. Edit one config file, deploy for free. English notes are at the bottom.*
@@ -61,7 +61,7 @@ Buka <http://localhost:3000>. Sekarang buka **`site.config.ts`**, ganti teksnya,
 | `about` | paragraf perkenalan, foto, dan ikon teknologi |
 | `contact` | teks ajakan, email, link usaha/ventures |
 | `socials` | ikon sosial media di footer |
-| `categories` | kategori karya (Development, Videography, Photography) |
+| `categories` | kategori karya (bebas nama & jumlahnya, lihat bagian "Kategori karya") |
 | `projects` | daftar project (mode local) |
 | `watermark` | tulisan kecil "Template by..." di footer |
 
@@ -89,13 +89,13 @@ Salin satu blok di `projects: [...]` lalu ubah isinya:
 {
   title: 'Toko Online Kopi',
   slug: 'toko-online-kopi',        // tanpa spasi, huruf kecil, unik
-  category: 'development',         // sama dengan slug kategori
-  subCategory: 'Web App',
+  category: 'projects',            // sama dengan slug kategori
+  subCategory: 'Branding',
   cover: '/projects/toko.webp',
   coverType: 'image',
   short: 'Ringkasan 1-2 kalimat untuk kartu.',
   long: 'Cerita lengkap project untuk halaman detail.',
-  techStack: ['Nuxt', 'Tailwind CSS'],
+  techStack: ['Strategi', 'Desain'],  // tag bebas
   liveUrl: 'https://tokokopi.com',
   githubUrl: '',
   client: 'Kopi Senja',
@@ -104,14 +104,28 @@ Salin satu blok di `projects: [...]` lalu ubah isinya:
 }
 ```
 
-- **Video**: pakai `category: 'videography'`, `coverType: 'youtube'`, `cover: 'https://youtube.com/watch?v=...'`.
-- **Foto**: pakai `category: 'photography'` dan isi `gallery` dengan foto-fotonya.
+- **Video**: taruh di kategori ber-layout `video`, dengan `coverType: 'youtube'` dan `cover: 'https://youtube.com/watch?v=...'`.
+- **Foto / desain**: taruh di kategori ber-layout `gallery` dan isi `gallery` dengan gambarnya.
+- `techStack` adalah daftar tag bebas (alat, skill, topik). Boleh kosong.
 
-### Daftar ikon teknologi
+### Kategori karya (bebas!)
 
-Di `about.techGroups` dan `techStack`, tulis salah satu kata kunci ini agar logonya muncul:
+Di `categories` kamu menentukan sendiri kategorinya, misalnya *Branding, Packaging, Tulisan*, atau *Rumah, Interior*.
+Tiap kategori punya `layout`:
+
+| layout | Tampilan | Cocok untuk |
+|---|---|---|
+| `cards` | kartu besar + halaman detail per project | studi kasus, produk, website, tulisan, arsitektur |
+| `video` | daftar video YouTube | film, reels, motion, wawancara |
+| `gallery` | kisi foto ala Pinterest | fotografi, desain, ilustrasi, seni |
+
+Tepat **3 kategori** memberi tampilan "bento" di beranda (kartu pertama besar); jumlah lain tampil sebagai kisi rata. 1 sampai 6 kategori paling pas.
+
+### Daftar ikon alat
+
+Di `about.techGroups` (bagian ikon di About), tulis salah satu kata kunci ini agar logonya muncul:
 `vite, react, vue, nuxt, next, tailwind, flutter, dart, android, node, supabase, firebase, postgres, html, css, js, figma, github, git, vercel, vscode, premiere, sony, dji, pwa, pinia, gsap, bootstrap, framer, shadcn, lucide`.
-Kata lain tetap bisa dipakai, tapi akan tampil dengan ikon umum.
+Kata lain tetap bisa dipakai, tapi akan tampil dengan ikon umum. Tidak butuh bagian ini? Kosongkan `techGroups: []`.
 
 ---
 
@@ -152,8 +166,14 @@ Ikuti urut. Total sekitar 10 menit.
 - Buka <http://localhost:3000/admin/login>, masuk dengan akun tadi.
 
 **7. Isi konten**
-- `/admin` → tambah project, upload gambar, centang *Featured*.
+- `/admin` → tambah project, upload gambar, pin ke Home (*Featured*).
 - `/admin/categories` → ganti gambar kategori. `/admin/settings` → email kontak, link sosial.
+- Mau menambah / mengganti nama kategori? Lewat SQL Editor, contoh:
+  ```sql
+  insert into main_categories (name, slug, layout_type, sort_order)
+  values ('Branding', 'branding', 'cards', 3);
+  ```
+  (`layout_type` = `cards`, `video`, atau `gallery`). Samakan juga daftar `categories` di `site.config.ts` supaya halaman error dan sitemap ikut benar.
 - Teks hero, about, dan watermark tetap diatur di `site.config.ts`.
 
 *(Opsional)* Tombol **Auto Generate AI** di form project butuh `GEMINI_API_KEY` (gratis di <https://aistudio.google.com/apikey>).

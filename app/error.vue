@@ -1,5 +1,5 @@
 <script setup>
-const { profile } = usePortfolioConfig()
+const { profile, categories } = usePortfolioConfig()
 const props = defineProps({ error: { type: Object, required: true } })
 
 const code = computed(() => String(props.error?.statusCode || 500))
@@ -14,9 +14,7 @@ useSeoMeta({ title: () => `${code.value} | ${profile.name}`, robots: 'noindex' }
 const goTo = (path) => clearError({ redirect: path })
 const links = [
   { label: 'Home', path: '/' },
-  { label: 'Development', path: '/work/development' },
-  { label: 'Videography', path: '/work/videography' },
-  { label: 'Photography', path: '/work/photography' },
+  ...categories.map(c => ({ label: c.name, path: `/work/${c.slug}` })),
 ]
 </script>
 

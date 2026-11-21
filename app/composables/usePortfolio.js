@@ -49,7 +49,7 @@ export const usePortfolio = () => {
     const current = cats.find(c => c.slug === slug) || null
     if (!current) return { categories: cats, currentCategory: null, projects: [] }
 
-    const cols = current.layout_type === 'development'
+    const cols = layoutOf(current) === 'cards'
       ? 'id, slug, title, desc_short, cover_url, cover_type, tech_stack, sort_order, sub_categories(name)'
       : '*, project_media(media_url, sort_order), sub_categories(name)'
     const { data, error } = await supabase
@@ -80,27 +80,31 @@ export const usePortfolio = () => {
     return { cat, project: { ...proj, gallery } }
   }
 
-  // Project unggulan di beranda (kategori development)
+  // Project unggulan di beranda: yang ditandai featured (dari kategori mana pun).
+  // Bila belum ada yang ditandai, ambil project dari kategori pertama.
   const featured = async () => {
     const max = siteConfig.featured?.maxItems || 3
     if (!isSupabase) {
-      const dev = local.projects.filter(p => p.main_category_id === 'development' || p.main_category_id === local.categories.find(c => c.layout_type === 'development')?.id)
-      const picked = dev.filter(p => p.is_featured)
-      return (picked.length ? picked : dev).sort(byOrder).slice(0, max)
+      const picked = local.projects.filter(p => p.is_featured)
+      const firstCat = local.categories[0]?.id
+      const pool = picked.length ? picked : local.projects.filter(p => p.main_category_id === firstCat)
+      return pool.sort(byOrder).slice(0, max)
     }
     try {
-      const { data: cat } = await supabase.from('main_categories').select('id').eq('slug', 'development').maybeSingle()
-      if (!cat) return []
-      const cols = 'id, slug, title, cover_url, desc_short, tech_stack, sub_categories(name)'
-      const base = () => supabase.from('projects').select(cols)
-        .eq('main_category_id', cat.id).eq('is_archived', false)
-      const picked = await base().eq('is_featured', true)
+      const cols = 'id, slug, title, cover_url, cover_type, desc_short, tech_stack, sub_categories(name), main_categories(slug)'
+      const withSlug = p => ({ ...p, category_slug: p.main_categories?.slug })
+      const picked = await supabase.from('projects').select(cols)
+        .eq('is_archived', false).eq('is_featured', true)
         .order('sort_order', { ascending: true }).order('created_at', { ascending: false }).limit(max)
-      if (!picked.error && picked.data?.length) return picked.data
-      const { data, error } = await base()
+      if (!picked.error && picked.data?.length) return picked.data.map(withSlug)
+      const { data: cat } = await supabase.from('main_categories').select('id')
+        .order('sort_order', { ascending: true }).limit(1).maybeSingle()
+      if (!cat) return []
+      const { data, error } = await supabase.from('projects').select(cols)
+        .eq('main_category_id', cat.id).eq('is_archived', false)
         .order('sort_order', { ascending: true }).order('created_at', { ascending: false }).limit(max)
       if (error) throw error
-      return data || []
+      return (data || []).map(withSlug)
     } catch (err) {
       console.error('Failed to load featured projects:', err)
       return []

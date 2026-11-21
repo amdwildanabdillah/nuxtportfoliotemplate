@@ -65,7 +65,7 @@ const defaultForm = {
   live_url: '',
   github_url: '',
   is_archived: false, // Ganti is_pinned jadi is_archived
-  is_featured: false, // Tampil di "Selected Work" beranda (khusus Development)
+  is_featured: false, // Tampil di "Selected Work" beranda 
   sort_order: 0
 }
 
@@ -99,9 +99,11 @@ const selectedCategoryName = computed(() => {
   const cat = mainCategories.value.find(c => c.id === form.value.main_category_id)
   return cat ? cat.name.toLowerCase() : ''
 })
-const isDev = computed(() => selectedCategoryName.value.includes('dev'))
-const isVideo = computed(() => selectedCategoryName.value.includes('video') || selectedCategoryName.value.includes('cinema'))
-const isPhoto = computed(() => selectedCategoryName.value.includes('photo'))
+// Perilaku form mengikuti tata letak kategori (cards / video / gallery), bukan namanya
+const selectedLayout = computed(() => layoutOf(mainCategories.value.find(c => c.id === form.value.main_category_id)))
+const isDev = computed(() => selectedLayout.value === 'cards')
+const isVideo = computed(() => selectedLayout.value === 'video')
+const isPhoto = computed(() => selectedLayout.value === 'gallery')
 
 const processCoverFiles = async (files) => {
   if (!files || files.length === 0) return
@@ -533,8 +535,8 @@ const toggleArchive = async (item) => {
   }
 }
 
-// Pin = tampil di "Selected Work" beranda. Hanya project Development; yang tampil maksimal 3.
-const isDevProject = (item) => mainCategories.value.find(c => c.id === item.main_category_id)?.slug === 'development'
+// Pin = tampil di "Selected Work" beranda (kategori mana pun). Jumlah yang tampil diatur featured.maxItems di site.config.ts.
+const isDevProject = () => true
 
 const togglePin = async (item) => {
   const next = !item.is_featured
@@ -546,7 +548,7 @@ const togglePin = async (item) => {
   item.is_featured = next
   const pinned = projects.value.filter(p => p.is_featured && isDevProject(p) && !p.is_archived).length
   if (next && pinned > 3) {
-    Swal.fire({ ...swalConfig, icon: 'info', title: `Sudah ${pinned} pin`, text: 'Di Home hanya 3 teratas (menurut urutan) yang tampil.' })
+    Swal.fire({ ...swalConfig, icon: 'info', title: `Sudah ${pinned} pin`, text: 'Di Home hanya beberapa teratas (menurut urutan) yang tampil.' })
   } else {
     Swal.fire({ ...swalConfig, icon: 'success', title: next ? 'Dipin ke Home 📌' : 'Pin dilepas' })
   }
@@ -710,7 +712,7 @@ const deleteProject = async (id) => {
                       <div :class="['w-4 h-4 border flex items-center justify-center transition-colors', form.is_featured ? 'bg-[#b084ff] border-[#b084ff]' : 'border-white/30']">
                         <Icon v-if="form.is_featured" name="ph:check-bold" class="text-black text-xs" />
                       </div>
-                      <span class="text-[10px] uppercase tracking-widest text-[#aaa]">Featured di Home (maks. 3, Development)</span>
+                      <span class="text-[10px] uppercase tracking-widest text-[#aaa]">Featured di Home</span>
                     </label>
                   </div>
 
@@ -793,7 +795,7 @@ const deleteProject = async (id) => {
                 </div>
 
                 <div v-if="isDev" class="border-t border-white/10 pt-8">
-                  <label class="text-[10px] text-[#b084ff] font-bold uppercase tracking-[0.2em] mb-4 block">Development Details</label>
+                  <label class="text-[10px] text-[#b084ff] font-bold uppercase tracking-[0.2em] mb-4 block">Project Details</label>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div class="space-y-2"><label class="text-[9px] text-[#666] uppercase tracking-[0.2em]">Live URL</label><input v-model="form.live_url" class="w-full bg-[#111] border border-white/10 p-3 text-sm text-white outline-none focus:border-[#b084ff] rounded-none"></div>
                     <div class="space-y-2"><label class="text-[9px] text-[#666] uppercase tracking-[0.2em]">GitHub URL</label><input v-model="form.github_url" class="w-full bg-[#111] border border-white/10 p-3 text-sm text-white outline-none focus:border-[#b084ff] rounded-none"></div>

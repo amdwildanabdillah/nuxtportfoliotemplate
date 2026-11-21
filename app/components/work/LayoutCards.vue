@@ -4,7 +4,7 @@ import { getTechDetails } from '~/utils/techIcons'
 
 defineProps({
   projects: { type: Array, required: true },
-  categoryName: { type: String, default: 'Development' }
+  categoryName: { type: String, default: 'Projects' }
 })
 const emit = defineEmits(['open-modal'])
 </script>

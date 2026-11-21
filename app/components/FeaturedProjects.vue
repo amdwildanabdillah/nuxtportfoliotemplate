@@ -1,7 +1,11 @@
 <script setup>
-// Proyek unggulan: 3 proyek Development teratas (urutan sort_order dari admin).
+// Proyek unggulan: yang ditandai featured (urutan sort_order).
 const { featured: cfg } = usePortfolioConfig()
-const { data: projects } = await useAsyncData('featured-dev', usePortfolio().featured, { default: () => [] })
+const portfolio = usePortfolio()
+const { data: projects } = await useAsyncData('featured-dev', portfolio.featured, { default: () => [] })
+const { data: cats } = await useAsyncData('work-categories', portfolio.categories, { default: () => [] })
+const allLink = computed(() => cats.value?.[0]?.slug ? `/work/${cats.value[0].slug}` : '/')
+const linkFor = (p) => p.slug ? `/work/${p.category_slug}/${p.slug}` : `/work/${p.category_slug}`
 
 const stack = (p) => (Array.isArray(p.tech_stack) ? p.tech_stack : String(p.tech_stack || '').split(','))
   .map((t) => String(t).trim()).filter(Boolean).slice(0, 4)
@@ -19,7 +23,7 @@ const stack = (p) => (Array.isArray(p.tech_stack) ? p.tech_stack : String(p.tech
             {{ cfg.titleBefore }} <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#b084ff] to-[#00d2ff]">{{ cfg.titleHighlight }}</span>
           </h2>
         </div>
-        <NuxtLink to="/work/development" class="group inline-flex items-center gap-2 text-[#aaa] hover:text-white transition-colors text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-light shrink-0">
+        <NuxtLink :to="allLink" class="group inline-flex items-center gap-2 text-[#aaa] hover:text-white transition-colors text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-light shrink-0">
           {{ cfg.linkLabel }}
           <Icon name="ph:arrow-up-right" class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </NuxtLink>
@@ -30,7 +34,7 @@ const stack = (p) => (Array.isArray(p.tech_stack) ? p.tech_stack : String(p.tech
         <NuxtLink
           v-for="(p, i) in projects"
           :key="p.id"
-          :to="p.slug ? `/work/development/${p.slug}` : `/work/development?p=${p.id}`"
+          :to="linkFor(p)"
           class="group relative flex flex-col bg-white/5 border border-white/10 hover:border-[#b084ff]/50 transition-colors duration-500 overflow-hidden"
           data-aos="fade-up"
           :data-aos-delay="i * 100"
@@ -63,7 +67,7 @@ const stack = (p) => (Array.isArray(p.tech_stack) ? p.tech_stack : String(p.tech
       <!-- Cadangan bila data belum termuat -->
       <div v-else class="border border-white/10 bg-white/5 p-8 text-center text-[#aaa] text-sm">
         {{ cfg.emptyText }}
-        <NuxtLink to="/work/development" class="text-[#b084ff] underline underline-offset-4">View all</NuxtLink>
+        <NuxtLink :to="allLink" class="text-[#b084ff] underline underline-offset-4">View all</NuxtLink>
       </div>
     </div>
   </section>

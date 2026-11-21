@@ -44,7 +44,7 @@ export default defineNuxtConfig({
     clientBundle: {
       scan: true,
       icons: [
-        'ph:x', 'ph:list', 'ph:code', 'ph:camera', 'ph:film-strip',
+        'ph:x', 'ph:list', 'ph:squares-four', 'ph:code', 'ph:camera', 'ph:film-strip',
         'ph:archive-box-fill', 'ph:eye', 'ph:spinner-gap', 'ph:magic-wand-fill',
         'ph:check-circle-fill', 'ph:circle', 'ph:push-pin', 'ph:push-pin-fill', 'ph:dots-six-vertical',
         // ikon sosial media (dipakai site.config.ts → socials)

@@ -10,7 +10,7 @@ create table if not exists public.main_categories (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   slug text not null unique,
-  layout_type text not null check (layout_type in ('development', 'videography', 'photography')),
+  layout_type text not null default 'cards' check (layout_type in ('cards', 'video', 'gallery', 'development', 'videography', 'photography')),
   bento_image_url text,
   description text,
   sort_order int not null default 0,
@@ -105,10 +105,11 @@ create policy "portfolio images admin write" on storage.objects
   using (bucket_id = 'portfolio-images') with check (bucket_id = 'portfolio-images');
 
 -- ---------- 4. DATA AWAL ----------
+-- Kategori awal. Ubah / tambah sesuka hati (layout_type: cards | video | gallery).
 insert into public.main_categories (name, slug, layout_type, sort_order, description) values
-  ('Development', 'development', 'development', 0, 'Translating complex ideas into functional, clean, and seamless digital solutions.'),
-  ('Videography', 'videography', 'videography', 1, 'A blend of moving images and audio to bring raw emotion into every narrative.'),
-  ('Photography', 'photography', 'photography', 2, 'A single frame, enough to convey feelings and stories that words can''t capture.')
+  ('Projects', 'projects', 'cards', 0, 'A selection of things I have built and worked on.'),
+  ('Videos', 'videos', 'video', 1, 'Moving images and sound, one story at a time.'),
+  ('Gallery', 'gallery', 'gallery', 2, 'Single frames that say more than words can.')
 on conflict (slug) do nothing;
 
 insert into public.site_settings (id, contact_email) values (1, 'hello@example.com')
