@@ -1,5 +1,5 @@
 <script setup>
-const { about, profile } = useSiteConfig()
+const { about, profile } = usePortfolioConfig()
 const techGroups = about.techGroups
 </script>
 

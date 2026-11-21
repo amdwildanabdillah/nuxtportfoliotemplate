@@ -7,7 +7,7 @@ import LayoutVideography from '~/components/work/LayoutVideography.vue'
 import LayoutPhotography from '~/components/work/LayoutPhotography.vue'
 import ProjectModal from '~/components/work/ProjectModal.vue'
 
-const { site, profile } = useSiteConfig()
+const { site, profile } = usePortfolioConfig()
 const portfolio = usePortfolio()
 const route = useRoute()
 const slug = computed(() => route.params.slug)

@@ -1,12 +1,12 @@
 <script setup>
 const currentYear = new Date().getFullYear()
-const { profile, contact, watermark } = useSiteConfig()
+const { profile, contact, watermark } = usePortfolioConfig()
 const portfolio = usePortfolio()
 const waLink = profile.whatsapp ? `https://wa.me/${String(profile.whatsapp).replace(/\D/g, '')}` : ''
 
 // Email: dari config; di mode Supabase bisa diubah lewat /admin/settings
 const { data: settings } = await useAsyncData('site-settings', () => portfolio.settings(),
-  { default: () => ({ contact_email: profile.email, socials: useSiteConfig().socials }) })
+  { default: () => ({ contact_email: profile.email, socials: usePortfolioConfig().socials }) })
 const contactEmail = computed(() => settings.value.contact_email)
 const socials = computed(() => settings.value.socials)
 

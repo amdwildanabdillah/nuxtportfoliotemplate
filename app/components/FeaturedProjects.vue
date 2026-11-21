@@ -1,6 +1,6 @@
 <script setup>
 // Proyek unggulan: 3 proyek Development teratas (urutan sort_order dari admin).
-const { featured: cfg } = useSiteConfig()
+const { featured: cfg } = usePortfolioConfig()
 const { data: projects } = await useAsyncData('featured-dev', usePortfolio().featured, { default: () => [] })
 
 const stack = (p) => (Array.isArray(p.tech_stack) ? p.tech_stack : String(p.tech_stack || '').split(','))

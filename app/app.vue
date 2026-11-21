@@ -1,6 +1,6 @@
 <script setup>
 // SEO global: semua nilainya diambil dari site.config.ts
-const { site } = useSiteConfig()
+const { site } = usePortfolioConfig()
 const img = site.ogImage.startsWith('http') ? site.ogImage : site.url + site.ogImage
 
 useSeoMeta({

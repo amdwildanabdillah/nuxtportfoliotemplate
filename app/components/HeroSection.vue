@@ -1,6 +1,6 @@
 <script setup>
 const { scrollToSection } = useStackScroll()
-const { hero, profile } = useSiteConfig()
+const { hero, profile } = usePortfolioConfig()
 const waLink = profile.whatsapp ? `https://wa.me/${String(profile.whatsapp).replace(/\D/g, '')}` : ''
 </script>
 

@@ -1,5 +1,5 @@
 <script setup>
-const { site, profile, socials, hero } = useSiteConfig()
+const { site, profile, socials, hero } = usePortfolioConfig()
 const featured = usePortfolio().featured
 // Dimuat di server supaya project unggulan sudah ada di HTML pertama
 await useAsyncData('featured-dev', featured, { default: () => [] })

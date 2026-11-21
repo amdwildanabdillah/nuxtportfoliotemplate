@@ -1,5 +1,5 @@
 <script setup>
-const { profile } = useSiteConfig()
+const { profile } = usePortfolioConfig()
 const props = defineProps({ error: { type: Object, required: true } })
 
 const code = computed(() => String(props.error?.statusCode || 500))

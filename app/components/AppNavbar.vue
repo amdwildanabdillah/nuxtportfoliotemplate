@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const { nav } = useSiteConfig()
+const { nav } = usePortfolioConfig()
 const portfolio = usePortfolio()
 const activeSection = ref('hero-section')
 const isMobileMenuOpen = ref(false)

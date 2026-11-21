@@ -6,7 +6,7 @@
 import siteConfig from '~~/site.config'
 import { buildLocalData } from '~/utils/localData'
 
-export const useSiteConfig = () => siteConfig
+export const usePortfolioConfig = () => siteConfig
 
 export const usePortfolio = () => {
   const isSupabase = siteConfig.mode === 'supabase'

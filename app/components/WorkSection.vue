@@ -1,5 +1,5 @@
 <script setup>
-const { work: cfg } = useSiteConfig()
+const { work: cfg } = usePortfolioConfig()
 const portfolio = usePortfolio()
 
 // ==============================================================

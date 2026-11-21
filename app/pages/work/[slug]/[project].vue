@@ -1,7 +1,7 @@
 <script setup>
 import { getTechDetails } from '~/utils/techIcons'
 
-const { site, profile, nav } = useSiteConfig()
+const { site, profile, nav } = usePortfolioConfig()
 const portfolio = usePortfolio()
 const route = useRoute()
 const SITE = site.url
