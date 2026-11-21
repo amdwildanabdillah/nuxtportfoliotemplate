@@ -36,6 +36,10 @@ const handleLogout = async () => {
         <Icon name="ph:squares-four" class="text-lg" /> Categories
       </NuxtLink>
 
+      <NuxtLink to="/admin/experience" @click="emit('close')" class="flex items-center gap-3 px-4 py-3 rounded-none text-[10px] font-bold uppercase tracking-widest text-[#aaa] hover:bg-white/5 hover:text-white transition-colors border border-transparent hover:border-white/10">
+        <Icon name="ph:path" class="text-lg" /> Experience
+      </NuxtLink>
+
       <NuxtLink to="/admin/settings" @click="emit('close')" class="flex items-center gap-3 px-4 py-3 rounded-none text-[10px] font-bold uppercase tracking-widest text-[#aaa] hover:bg-white/5 hover:text-white transition-colors border border-transparent hover:border-white/10" active-class="bg-[#b084ff]/10 text-[#b084ff] border-white/10">
         <Icon name="ph:gear" class="text-lg" /> Settings
       </NuxtLink>

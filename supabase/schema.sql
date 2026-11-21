@@ -72,6 +72,24 @@ create table if not exists public.social_links (
   sort_order int not null default 0
 );
 
+create table if not exists public.experiences (
+  id uuid primary key default gen_random_uuid(),
+  kind text not null default 'work' check (kind in ('work', 'organization', 'education', 'certificate')),
+  title text not null,
+  organization text,
+  location text,
+  period_start date,
+  period_end date,
+  is_current boolean not null default false,
+  description text,
+  link_url text,
+  image_url text,
+  logo_url text,
+  sort_order int not null default 0,
+  is_visible boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
 create index if not exists projects_category_idx on public.projects (main_category_id, is_archived, sort_order);
 create index if not exists project_media_project_idx on public.project_media (project_id, sort_order);
 
@@ -80,7 +98,7 @@ create index if not exists project_media_project_idx on public.project_media (pr
 do $$
 declare t text;
 begin
-  foreach t in array array['main_categories','sub_categories','projects','project_media','site_settings','social_links']
+  foreach t in array array['main_categories','sub_categories','projects','project_media','site_settings','social_links','experiences']
   loop
     execute format('alter table public.%I enable row level security', t);
     execute format('drop policy if exists "public read" on public.%I', t);

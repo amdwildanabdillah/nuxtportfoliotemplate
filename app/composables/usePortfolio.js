@@ -111,6 +111,24 @@ export const usePortfolio = () => {
     }
   }
 
+  // Experience: mode local = dari config; mode supabase = tabel `experiences`
+  // (bila tabel belum dibuat, jatuh ke data contoh di config supaya beranda tidak error)
+  const experiences = async () => {
+    const fromConfig = () => experienceFromConfig(siteConfig.experience?.items)
+    if (!isSupabase) return fromConfig()
+    try {
+      const { data, error } = await supabase.from('experiences').select('*')
+        .eq('is_visible', true)
+        .order('sort_order', { ascending: true })
+        .order('period_start', { ascending: false, nullsFirst: false })
+      if (error) throw error
+      return data || []
+    } catch (err) {
+      console.warn('Experience table unavailable, using config items.', err?.message || err)
+      return fromConfig()
+    }
+  }
+
   // Email kontak & link tambahan (di mode supabase bisa diubah lewat /admin/settings)
   const settings = async () => {
     const base = { contact_email: siteConfig.profile.email, portfolio_url: '', socials: siteConfig.socials }
@@ -130,5 +148,5 @@ export const usePortfolio = () => {
     }
   }
 
-  return { isSupabase, categories, categoryWithProjects, project, featured, settings }
+  return { isSupabase, experiences, categories, categoryWithProjects, project, featured, settings }
 }

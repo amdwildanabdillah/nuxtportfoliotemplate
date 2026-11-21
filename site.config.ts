@@ -110,6 +110,46 @@ export default {
     ] as { label: string; tools: { key: string; name: string }[] }[],
   },
 
+  // ──────────────────────────────────────────────────────────
+  // 6b. EXPERIENCE (pengalaman, organisasi, pendidikan, sertifikat)
+  //     `show: false` = seluruh bagian dan link navbar-nya disembunyikan.
+  //     Mode 'local'    → isi dari `items` di bawah.
+  //     Mode 'supabase' → isi dari /admin/experience (items di bawah hanya contoh / bahan impor).
+  // ──────────────────────────────────────────────────────────
+  experience: {
+    show: true,
+    eyebrow: 'Experience',
+    titleBefore: 'My',
+    titleHighlight: 'journey.',
+    nowLabel: 'NOW', // tulisan untuk entri yang masih berjalan
+    resumeLabel: 'Resume', // tombol di kanan judul; kosongkan `resumeUrl` kalau tidak perlu
+    resumeUrl: '',
+    // Judul tiap kelompok. Kelompok tanpa isi otomatis disembunyikan.
+    kinds: { work: 'Experience', organization: 'Organizations', education: 'Education', certificate: 'Certificates' },
+    // kind    : 'work' | 'organization' | 'education' | 'certificate'
+    // start/end: 'YYYY-MM'. Entri berjalan: current: true (end diabaikan)
+    // logo    : path / URL logo organisasi (kosong = monogram otomatis)
+    // link    : link bukti / verifikasi (opsional). image: gambar sertifikat (opsional)
+    items: [
+      { kind: 'work', title: 'Job Title', organization: 'Company Name', location: 'City · Hybrid',
+        start: '2024-06', current: true, logo: '', link: '', image: '',
+        description: 'One or two sentences about what you did, what you shipped, and the impact you had.' },
+      { kind: 'work', title: 'Previous Role', organization: 'Another Company', location: 'City',
+        start: '2022-01', end: '2024-05', current: false, logo: '', link: '', image: '',
+        description: 'Describe the role briefly. Keep it concrete.' },
+      { kind: 'organization', title: 'Volunteer / Community Role', organization: 'Organization Name', location: 'City',
+        start: '2021-03', end: '2022-03', current: false, logo: '', link: '', image: '',
+        description: '' },
+      { kind: 'education', title: 'Degree or Program', organization: 'University / School Name', location: 'City',
+        start: '2018-08', end: '2022-07', current: false, logo: '', link: '', image: '', description: '' },
+      { kind: 'certificate', title: 'Certificate Name', organization: 'Issuing Organization', location: '',
+        start: '2023-09', current: false, logo: '', link: 'https://example.com/verify', image: '', description: '' },
+    ] as {
+      kind: 'work' | 'organization' | 'education' | 'certificate'; title: string; organization?: string; location?: string
+      start?: string; end?: string; current?: boolean; description?: string; logo?: string; link?: string; image?: string
+    }[],
+  },
+
   contact: {
     eyebrow: 'Let\'s Collaborate',
     headingBefore: 'ready to make something',

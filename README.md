@@ -58,7 +58,8 @@ Buka <http://localhost:3000>. Sekarang buka **`site.config.ts`**, ganti teksnya,
 | `nav` | logo teks di navbar, tombol Connect, link tambahan (CV, dll.) |
 | `hero` | teks besar di halaman pertama + tombol |
 | `featured` | judul bagian "Selected Work" |
-| `about` | paragraf perkenalan, foto, dan ikon teknologi |
+| `about` | paragraf perkenalan, foto, dan ikon alat |
+| `experience` | riwayat kerja, organisasi, pendidikan, sertifikat (bisa dimatikan dengan `show: false`) |
 | `contact` | teks ajakan, email, link usaha/ventures |
 | `socials` | ikon sosial media di footer |
 | `categories` | kategori karya (bebas nama & jumlahnya, lihat bagian "Kategori karya") |
@@ -107,6 +108,27 @@ Salin satu blok di `projects: [...]` lalu ubah isinya:
 - **Video**: taruh di kategori ber-layout `video`, dengan `coverType: 'youtube'` dan `cover: 'https://youtube.com/watch?v=...'`.
 - **Foto / desain**: taruh di kategori ber-layout `gallery` dan isi `gallery` dengan gambarnya.
 - `techStack` adalah daftar tag bebas (alat, skill, topik). Boleh kosong.
+
+### Experience (riwayat)
+
+Bagian ini menampilkan pengalaman kerja, organisasi, pendidikan, dan sertifikat dalam satu timeline.
+Isi lewat `experience.items` di `site.config.ts`:
+
+```ts
+{ kind: 'work',            // work | organization | education | certificate
+  title: 'Product Designer',
+  organization: 'Nama Perusahaan',
+  location: 'Jakarta · Hybrid',
+  start: '2024-06',        // tahun-bulan
+  current: true,           // masih berjalan → tampil "NOW"  (kalau sudah selesai: current: false + end: '2025-12')
+  logo: '/logos/perusahaan.png',   // opsional; kosong = monogram otomatis
+  link: 'https://...',             // opsional (link verifikasi)
+  image: '/certs/sertifikat.webp', // opsional (gambar sertifikat, tampil sebagai pop-up)
+  description: 'Satu atau dua kalimat.' }
+```
+
+Kelompok yang kosong otomatis disembunyikan, dan judul tiap kelompok bisa diganti di `experience.kinds`.
+Tidak mau bagian ini? Set `experience.show: false`; link di navbar ikut hilang.
 
 ### Kategori karya (bebas!)
 
@@ -167,6 +189,7 @@ Ikuti urut. Total sekitar 10 menit.
 
 **7. Isi konten**
 - `/admin` → tambah project, upload gambar, pin ke Home (*Featured*).
+- `/admin/experience` → kelola riwayat (Experience). Tabel kosong = bagian ini tidak tampil sampai kamu menambah entri; tombol *Impor dari site.config.ts* mengisi contoh sekaligus.
 - `/admin/categories` → ganti gambar kategori. `/admin/settings` → email kontak, link sosial.
 - Mau menambah / mengganti nama kategori? Lewat SQL Editor, contoh:
   ```sql

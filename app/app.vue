@@ -90,15 +90,24 @@ body {
 @keyframes stack-away { to { transform: scale(0.6); opacity: 0.8; } }
 @media (min-width: 768px) and (min-height: 720px) {
   @supports (animation-timeline: view()) {
-    .stack-root { timeline-scope: --st2, --st3, --st4, --st5; }
+    .stack-root { timeline-scope: --st2, --st3, --st4, --st5, --st6; }
     .stack-panel:nth-child(2) { view-timeline: --st2 block; }
     .stack-panel:nth-child(3) { view-timeline: --st3 block; }
     .stack-panel:nth-child(4) { view-timeline: --st4 block; }
     .stack-panel:nth-child(5) { view-timeline: --st5 block; }
+    .stack-panel:nth-child(6) { view-timeline: --st6 block; }
     .stack-panel:nth-child(1):not(.stack-last) { animation: stack-away linear both; animation-timeline: --st2; animation-range: entry 0% entry 100%; }
     .stack-panel:nth-child(2):not(.stack-last) { animation: stack-away linear both; animation-timeline: --st3; animation-range: entry 0% entry 100%; }
     .stack-panel:nth-child(3):not(.stack-last) { animation: stack-away linear both; animation-timeline: --st4; animation-range: entry 0% entry 100%; }
     .stack-panel:nth-child(4):not(.stack-last) { animation: stack-away linear both; animation-timeline: --st5; animation-range: entry 0% entry 100%; }
+    .stack-panel:nth-child(5):not(.stack-last) { animation: stack-away linear both; animation-timeline: --st6; animation-range: entry 0% entry 100%; }
+  }
+}
+/* Panel yang tingginya mengikuti isi (mis. Experience): mengalir biasa, tidak menempel dan tidak mengecil */
+@media (min-width: 768px) and (min-height: 720px) {
+  .stack-panel.stack-flow { position: relative; height: auto; overflow: visible; }
+  @supports (animation-timeline: view()) {
+    .stack-panel.stack-flow { animation: none !important; }
   }
 }
 </style>

@@ -1,7 +1,10 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const { nav } = usePortfolioConfig()
+const { nav, experience } = usePortfolioConfig()
+// Data Experience sudah diambil di halaman beranda (kunci 'experiences'); tampilkan link hanya bila ada isinya
+const { data: expItems } = useNuxtData('experiences')
+const showExperience = computed(() => experience.show && (expItems.value?.length || 0) > 0)
 const portfolio = usePortfolio()
 const activeSection = ref('hero-section')
 const isMobileMenuOpen = ref(false)
@@ -17,7 +20,7 @@ const fetchSettings = async () => {
 }
 
 const { scrollToSection: jumpTo, activeSectionId } = useStackScroll()
-const sectionIds = ['hero-section', 'featured-section', 'work-section', 'about-section', 'contact-section']
+const sectionIds = computed(() => ['hero-section', 'featured-section', 'work-section', ...(showExperience.value ? ['experience-section'] : []), 'about-section', 'contact-section'])
 
 const scrollToSection = (id) => {
   jumpTo(id)
@@ -31,7 +34,7 @@ const handleScroll = () => {
   requestAnimationFrame(() => {
     ticking = false
     const nearBottom = window.innerHeight + Math.round(window.scrollY) >= document.documentElement.scrollHeight - 150
-    activeSection.value = nearBottom ? 'contact-section' : activeSectionId(sectionIds)
+    activeSection.value = nearBottom ? 'contact-section' : activeSectionId(sectionIds.value)
   })
 }
 
@@ -61,6 +64,7 @@ onUnmounted(() => {
         <li><a href="#" @click.prevent="scrollToSection('hero-section')" class="text-[#888] font-light text-sm tracking-wide transition-all duration-300 hover:text-white hover:font-medium" :class="{ '!text-white !font-medium': activeSection === 'hero-section' }">Home</a></li>
         <li><a href="#" @click.prevent="scrollToSection('featured-section')" class="text-[#888] font-light text-sm tracking-wide transition-all duration-300 hover:text-white hover:font-medium" :class="{ '!text-white !font-medium': activeSection === 'featured-section' }">Projects</a></li>
         <li><a href="#" @click.prevent="scrollToSection('work-section')" class="text-[#888] font-light text-sm tracking-wide transition-all duration-300 hover:text-white hover:font-medium" :class="{ '!text-white !font-medium': activeSection === 'work-section' }">Work</a></li>
+        <li v-if="showExperience"><a href="#" @click.prevent="scrollToSection('experience-section')" class="text-[#888] font-light text-sm tracking-wide transition-all duration-300 hover:text-white hover:font-medium" :class="{ '!text-white !font-medium': activeSection === 'experience-section' }">Experience</a></li>
         <li><a href="#" @click.prevent="scrollToSection('about-section')" class="text-[#888] font-light text-sm tracking-wide transition-all duration-300 hover:text-white hover:font-medium" :class="{ '!text-white !font-medium': activeSection === 'about-section' }">About</a></li>
         
         <li v-if="nav.extraLinks.length || portfolioUrl"><div class="w-px h-4 bg-white/20 mx-1"></div></li>
@@ -95,6 +99,7 @@ onUnmounted(() => {
       <a href="#" @click.prevent="scrollToSection('hero-section')" class="px-6 py-4 text-[#aaa] font-light text-sm border-b border-white/5 transition-all duration-300 hover:text-white hover:font-medium" :class="{ 'text-white bg-white/5 !font-medium': activeSection === 'hero-section' }">Home</a>
       <a href="#" @click.prevent="scrollToSection('featured-section')" class="px-6 py-4 text-[#aaa] font-light text-sm border-b border-white/5 transition-all duration-300 hover:text-white hover:font-medium" :class="{ 'text-white bg-white/5 !font-medium': activeSection === 'featured-section' }">Projects</a>
       <a href="#" @click.prevent="scrollToSection('work-section')" class="px-6 py-4 text-[#aaa] font-light text-sm border-b border-white/5 transition-all duration-300 hover:text-white hover:font-medium" :class="{ 'text-white bg-white/5 !font-medium': activeSection === 'work-section' }">Work</a>
+      <a v-if="showExperience" href="#" @click.prevent="scrollToSection('experience-section')" class="px-6 py-4 text-[#aaa] font-light text-sm border-b border-white/5 transition-all duration-300 hover:text-white hover:font-medium" :class="{ 'text-white bg-white/5 !font-medium': activeSection === 'experience-section' }">Experience</a>
       <a href="#" @click.prevent="scrollToSection('about-section')" class="px-6 py-4 text-[#aaa] font-light text-sm border-b border-white/5 transition-all duration-300 hover:text-white hover:font-medium" :class="{ 'text-white bg-white/5 !font-medium': activeSection === 'about-section' }">About</a>
       
       <div v-if="nav.extraLinks.length || portfolioUrl" class="h-3 bg-white/5 border-b border-white/5"></div>
