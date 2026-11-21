@@ -151,10 +151,10 @@ export default {
   },
 
   contact: {
-    eyebrow: 'Let\'s Collaborate',
-    headingBefore: 'ready to make something',
-    headingHighlight: 'amazing?',
-    ctaLabel: 'START A PROJECT',
+    eyebrow: 'Get in touch',
+    headingBefore: 'have a project in mind?',
+    headingHighlight: 'let\'s talk.',
+    ctaLabel: 'SAY HELLO', // tombol ke WhatsApp (kalau profile.whatsapp diisi) atau ke email
     footerTagline: 'Thanks for stopping by. Let\'s make something great together.',
     venturesLabel: 'My Ventures', // kosongkan `ventures` kalau tidak perlu
     ventures: [
@@ -293,6 +293,6 @@ export default {
     show: true,
     text: 'Template by',
     label: 'Wildan · Vixel Creative',
-    url: 'https://vixelcreative.codes',
+    url: 'https://idanabdll.me',
   },
 }

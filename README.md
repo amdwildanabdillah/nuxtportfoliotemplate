@@ -241,7 +241,7 @@ kalau mau dihapus cukup `watermark.show: false` di `site.config.ts`.
 
 Font: [Clash Display & General Sans](https://www.fontshare.com) (Fontshare, gratis untuk penggunaan pribadi dan komersial). Ikon: Phosphor.
 
-Dibuat oleh **Ahmad Wildan Abdillah** · [Vixel Creative](https://vixelcreative.codes)
+Dibuat oleh **Ahmad Wildan Abdillah** · [idanabdll.me](https://idanabdll.me)
 
 ---
 
