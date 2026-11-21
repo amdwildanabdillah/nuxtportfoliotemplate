@@ -45,7 +45,7 @@ const play = (id) => { playing[id] = true }
       <!-- PEMUTAR: gambar mini dulu, iframe baru dimuat saat diklik -->
       <div class="relative w-full pb-[56.25%] bg-black border-b border-white/10">
         <iframe v-if="playing[video.id]" :src="getSrc(video.cover_url, true)" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen frameborder="0" title="Video preview" class="absolute inset-0 w-full h-full z-10"></iframe>
-        <button v-else type="button" :aria-label="`Putar video ${video.title}`" class="absolute inset-0 w-full h-full z-10 group/play cursor-pointer" @click="play(video.id)">
+        <button v-else type="button" :aria-label="`Play video ${video.title}`" class="absolute inset-0 w-full h-full z-10 group/play cursor-pointer" @click="play(video.id)">
           <img v-if="thumbFor(video.cover_url)" :src="thumbFor(video.cover_url)" :alt="video.title" loading="lazy" decoding="async" width="320" height="180" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover/play:opacity-100 transition-opacity duration-300" />
           <span class="absolute inset-0 flex items-center justify-center">
             <span class="w-14 h-14 rounded-full bg-[#050505]/70 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover/play:bg-[#b084ff] group-hover/play:border-[#b084ff] transition-colors duration-300">

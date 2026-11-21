@@ -29,8 +29,7 @@ const getSrc = (type, url) => {
   <div class="fixed inset-0 bg-[#050505]/95 z-[9999] flex items-center justify-center p-4 md:p-8" @click.self="emit('close')">
     <div class="w-full max-w-7xl bg-[#0a0a0a] border border-white/10 flex flex-col md:flex-row max-h-[90vh] overflow-hidden relative shadow-2xl rounded-none md:items-stretch">
       
-      <!-- ADDITIONAL: aria-label="Tutup modal" -->
-      <button aria-label="Tutup modal" @click="emit('close')" class="absolute top-4 right-4 md:top-6 md:right-6 text-white/50 hover:text-[#b084ff] bg-[#050505] border border-white/10 p-2 md:p-3 transition-all duration-300 z-50 rounded-none">
+      <button aria-label="Close" @click="emit('close')" class="absolute top-4 right-4 md:top-6 md:right-6 text-white/50 hover:text-[#b084ff] bg-[#050505] border border-white/10 p-2 md:p-3 transition-all duration-300 z-50 rounded-none">
         <Icon name="ph:x" class="text-xl" />
       </button>
 
@@ -58,12 +57,10 @@ const getSrc = (type, url) => {
             </template>
           
           <div v-if="activeProject.gallery.length > 1" class="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300">
-            <!-- ADDITIONAL: aria-label="Gambar sebelumnya" -->
-            <button aria-label="Gambar sebelumnya" @click="emit('prev')" class="bg-[#050505] hover:bg-[#b084ff] text-white p-3 transition-colors border border-white/10 rounded-none">
+            <button aria-label="Previous image" @click="emit('prev')" class="bg-[#050505] hover:bg-[#b084ff] text-white p-3 transition-colors border border-white/10 rounded-none">
               <Icon name="ph:caret-left" class="text-xl" />
             </button>
-            <!-- ADDITIONAL: aria-label="Gambar selanjutnya" -->
-            <button aria-label="Gambar selanjutnya" @click="emit('next')" class="bg-[#050505] hover:bg-[#b084ff] text-white p-3 transition-colors border border-white/10 rounded-none">
+            <button aria-label="Next image" @click="emit('next')" class="bg-[#050505] hover:bg-[#b084ff] text-white p-3 transition-colors border border-white/10 rounded-none">
               <Icon name="ph:caret-right" class="text-xl" />
             </button>
           </div>

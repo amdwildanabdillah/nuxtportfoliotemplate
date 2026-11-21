@@ -115,7 +115,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         <div class="grid md:grid-cols-[1fr_260px] gap-10 md:gap-16">
           <!-- Cerita project -->
           <div>
-            <h2 class="text-[#666] text-[10px] uppercase tracking-[0.2em] mb-4">Tentang project</h2>
+            <h2 class="text-[#666] text-[10px] uppercase tracking-[0.2em] mb-4">About this project</h2>
             <p v-if="project.desc_long" class="text-[#bbb] font-light leading-[1.9] text-sm md:text-[15px] whitespace-pre-line">{{ project.desc_long }}</p>
             <p v-else class="text-[#888] font-light text-sm">{{ summary }}</p>
           </div>
@@ -132,7 +132,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
               </ul>
             </div>
             <div v-if="project.client_name">
-              <h2 class="text-[#666] text-[10px] uppercase tracking-[0.2em] mb-3">Klien</h2>
+              <h2 class="text-[#666] text-[10px] uppercase tracking-[0.2em] mb-3">Client</h2>
               <p class="text-white text-sm m-0">{{ project.client_name }}</p>
             </div>
           </aside>

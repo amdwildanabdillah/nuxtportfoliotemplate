@@ -78,7 +78,7 @@ export default {
   // ──────────────────────────────────────────────────────────
   featured: {
     eyebrow: 'Selected Work',
-    titleBefore: 'Selected',
+    titleBefore: 'Featured',
     titleHighlight: 'work.',
     linkLabel: 'See all work',
     emptyText: 'No featured projects yet.',
